@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedSkord</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Экран регистрации/входа -->
+    <div id="authScreen" class="auth-container">
+        <div class="auth-box">
+            <h1>RedSkord</h1>
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Вход</button>
+                <button class="tab-btn" data-tab="register">Регистрация</button>
+            </div>
+            
+            <!-- Форма входа -->
+            <form id="loginForm" class="auth-form active">
+                <input type="text" id="loginUsername" placeholder="Имя пользователя" required>
+                <input type="password" id="loginPassword" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+            </form>
+            
+            <!-- Форма регистрации -->
+            <form id="registerForm" class="auth-form">
+                <input type="text" id="registerUsername" placeholder="Имя пользователя" required>
+                <input type="password" id="registerPassword" placeholder="Пароль" required>
+                <input type="password" id="registerPasswordConfirm" placeholder="Подтвердите пароль" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+            
+            <div id="authError" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Экран мессенджера -->
+    <div id="messengerScreen" class="messenger-container hidden">
+        <div class="messenger-header">
+            <h2>RedSkord</h2>
+            <div class="user-info">
+                <span id="currentUsername"></span>
+                <button id="logoutBtn" class="logout-btn">Выйти</button>
+            </div>
+        </div>
+        
+        <div class="messenger-main">
+            <div class="users-sidebar">
+                <div class="sidebar-header">
+                    <h3>Друзья</h3>
+                    <button id="addFriendBtn" class="add-friend-btn" title="Добавить друга">+</button>
+                </div>
+                <div id="friendsList" class="users-list"></div>
+            </div>
+            
+            <div class="chat-area">
+                <div class="chat-header">
+                    <span id="chatWithUser">Выберите друга для общения</span>
+                    <div class="call-buttons" id="callButtons" style="display: none;">
+                        <button id="videoCallBtn" class="call-btn video-call" title="Видеозвонок">📹</button>
+                        <button id="audioCallBtn" class="call-btn audio-call" title="Голосовой звонок">📞</button>
+                    </div>
+                </div>
+                <div id="messagesContainer" class="messages-container"></div>
+                <div class="message-input-container">
+                    <input type="text" id="messageInput" placeholder="Введите сообщение..." maxlength="500">
+                    <button id="sendBtn" class="send-btn">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления друга -->
+    <div id="addFriendModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Добавить друга</h3>
+                <button class="modal-close" id="closeAddFriendModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="friendUsernameInput" placeholder="Введите имя пользователя" autocomplete="off">
+                <div id="addFriendError" class="error-message"></div>
+                <button id="addFriendSubmitBtn" class="modal-submit-btn">Добавить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Окно звонка -->
+    <div id="callModal" class="call-modal hidden">
+        <div class="call-container">
+            <div class="call-header">
+                <h3 id="callTitle">Звонок</h3>
+                <span id="callStatus">Соединение...</span>
+            </div>
+            <div class="video-container">
+                <video id="localVideo" autoplay muted playsinline></video>
+                <video id="remoteVideo" autoplay playsinline></video>
+            </div>
+            <div class="call-controls">
+                <button id="endCallBtn" class="call-control-btn end-call">Завершить</button>
+                <button id="toggleVideoBtn" class="call-control-btn toggle-video">📹</button>
+                <button id="toggleAudioBtn" class="call-control-btn toggle-audio">🔇</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="database-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

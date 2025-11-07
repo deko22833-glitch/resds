@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Помощник настройки Firebase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .step h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .step p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 10px;
+            border: 2px solid #4caf50;
+            display: none;
+        }
+        .result.show {
+            display: block;
+        }
+        .copy-btn {
+            background: #4caf50;
+            margin-top: 10px;
+        }
+        .copy-btn:hover {
+            background: #45a049;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Помощник настройки Firebase</h1>
+        <p class="subtitle">Следуйте инструкциям ниже, чтобы получить конфигурацию Firebase</p>
+
+        <div class="warning">
+            <strong>⚠️ Важно:</strong> Вам нужно войти в свой Google аккаунт на странице Firebase Console
+        </div>
+
+        <div class="step">
+            <h2>Шаг 1: Откройте Firebase Console</h2>
+            <p>Перейдите по ссылке: <a href="https://console.firebase.google.com/" target="_blank">https://console.firebase.google.com/</a></p>
+            <p>Войдите в свой Google аккаунт</p>
+        </div>
+
+        <div class="step">
+            <h2>Шаг 2: Выберите проект</h2>
+            <p>Выберите проект <strong>redsk-bb508</strong> (или создайте новый)</p>
+        </div>
+
+        <div class="step">
+            <h2>Шаг 3: Получите конфигурацию</h2>
+            <p>1. Нажмите на иконку ⚙️ (шестеренка) рядом с "Project Overview"</p>
+            <p>2. Выберите "Project settings"</p>
+            <p>3. Прокрутите вниз до раздела "Your apps"</p>
+            <p>4. Если приложения нет, нажмите на иконку Web `</>` и зарегистрируйте приложение</p>
+            <p>5. Найдите блок с конфигурацией, который выглядит так:</p>
+            <div class="code-block">
+const firebaseConfig = {<br>
+&nbsp;&nbsp;apiKey: "AIza...",<br>
+&nbsp;&nbsp;authDomain: "...",<br>
+&nbsp;&nbsp;databaseURL: "https://...",<br>
+&nbsp;&nbsp;projectId: "...",<br>
+&nbsp;&nbsp;storageBucket: "...",<br>
+&nbsp;&nbsp;messagingSenderId: "...",<br>
+&nbsp;&nbsp;appId: "..."<br>
+};
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>Шаг 4: Введите данные в форму ниже</h2>
+            <p>Скопируйте значения из Firebase Console и вставьте их в форму:</p>
+            
+            <form id="firebaseForm">
+                <div class="form-group">
+                    <label>apiKey:</label>
+                    <input type="text" id="apiKey" placeholder="AIzaSy..." required>
+                </div>
+                <div class="form-group">
+                    <label>authDomain:</label>
+                    <input type="text" id="authDomain" placeholder="your-project.firebaseapp.com" required>
+                </div>
+                <div class="form-group">
+                    <label>databaseURL:</label>
+                    <input type="text" id="databaseURL" placeholder="https://your-project-default-rtdb.firebaseio.com" required>
+                </div>
+                <div class="form-group">
+                    <label>projectId:</label>
+                    <input type="text" id="projectId" placeholder="your-project" required>
+                </div>
+                <div class="form-group">
+                    <label>storageBucket:</label>
+                    <input type="text" id="storageBucket" placeholder="your-project.appspot.com" required>
+                </div>
+                <div class="form-group">
+                    <label>messagingSenderId:</label>
+                    <input type="text" id="messagingSenderId" placeholder="123456789012" required>
+                </div>
+                <div class="form-group">
+                    <label>appId:</label>
+                    <input type="text" id="appId" placeholder="1:123456789012:web:abc123" required>
+                </div>
+                <button type="submit">Сгенерировать конфигурацию</button>
+            </form>
+
+            <div id="result" class="result">
+                <h3>✅ Готово! Скопируйте этот код:</h3>
+                <div class="code-block" id="configCode"></div>
+                <button class="copy-btn" onclick="copyConfig()">📋 Копировать в буфер обмена</button>
+                <p style="margin-top: 15px; color: #666;">
+                    <strong>Что делать дальше:</strong><br>
+                    1. Откройте файл <code>firebase-config.js</code><br>
+                    2. Замените строки 8-16 на скопированный код<br>
+                    3. Сохраните файл
+                </p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>Шаг 5: Создайте Realtime Database</h2>
+            <p>1. В Firebase Console перейдите в "Realtime Database"</p>
+            <p>2. Нажмите "Создать базу данных"</p>
+            <p>3. Выберите "Режим тестирования"</p>
+            <p>4. Выберите регион</p>
+            <p>5. В разделе "Правила" установите:</p>
+            <div class="code-block">
+{<br>
+&nbsp;&nbsp;"rules": {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;".read": true,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;".write": true<br>
+&nbsp;&nbsp;}<br>
+}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('firebaseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const config = {
+                apiKey: document.getElementById('apiKey').value.trim(),
+                authDomain: document.getElementById('authDomain').value.trim(),
+                databaseURL: document.getElementById('databaseURL').value.trim(),
+                projectId: document.getElementById('projectId').value.trim(),
+                storageBucket: document.getElementById('storageBucket').value.trim(),
+                messagingSenderId: document.getElementById('messagingSenderId').value.trim(),
+                appId: document.getElementById('appId').value.trim()
+            };
+
+            const configCode = `const firebaseConfig = {
+    apiKey: "${config.apiKey}",
+    authDomain: "${config.authDomain}",
+    databaseURL: "${config.databaseURL}",
+    projectId: "${config.projectId}",
+    storageBucket: "${config.storageBucket}",
+    messagingSenderId: "${config.messagingSenderId}",
+    appId: "${config.appId}"
+};`;
+
+            document.getElementById('configCode').textContent = configCode;
+            document.getElementById('result').classList.add('show');
+            window.generatedConfig = configCode;
+        });
+
+        function copyConfig() {
+            const text = window.generatedConfig;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Конфигурация скопирована в буфер обмена!');
+            }).catch(() => {
+                // Fallback для старых браузеров
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('✅ Конфигурация скопирована в буфер обмена!');
+            });
+        }
+    </script>
+</body>
+</html>
+
